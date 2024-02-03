@@ -13,6 +13,8 @@ M.default_opts = {
     delay = 0,
     virtual_text_column = nil,
     use_blame_commit_file_urls = false,
+    italics = false,
+    blame_color = nil
 }
 
 ---@param opts SetupOptions?

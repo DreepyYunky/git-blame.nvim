@@ -353,9 +353,19 @@ local function update_blame_text(blame_text)
     end
     local options = {
         id = 1,
-        virt_text = { { blame_text, vim.g.gitblame_highlight_group } },
+        virt_text = { { blame_text, vim.g.gitblame_blame_color } },
+
         virt_text_win_col = virt_text_column,
     }
+    if vim.g.gitblame_highlight_group == nil then
+        options = {
+            id = 1,
+            virt_text = { { blame_text, vim.g.blame_color } },
+
+            virt_text_win_col = virt_text_column,
+
+        }
+    end
     local user_options = vim.g.gitblame_set_extmark_options or {}
     if type(user_options) == "table" then
         utils.merge_map(user_options, options)
@@ -700,6 +710,8 @@ end
 ---@field delay number? Visual delay for displaying virtual text
 ---@field use_blame_commit_file_urls boolean? Use the latest blame commit instead of the latest branch commit for file urls.
 ---@field virtual_text_column number? The column on which to start displaying virtual text
+---@field italics boolean Whether or not blames are in italics.
+---@field blame_color string Color of blames.
 
 ---@param opts SetupOptions?
 M.setup = function(opts)
